@@ -1,0 +1,2 @@
+class MasterStartYear < ApplicationRecord
+end

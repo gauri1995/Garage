@@ -1,0 +1,17 @@
+<%= form_for(master_start_year) do |f| %>
+  <% if master_start_year.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(master_start_year.errors.count, "error") %> prohibited this master_start_year from being saved:</h2>
+
+      <ul>
+      <% master_start_year.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

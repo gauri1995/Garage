@@ -1,0 +1,5 @@
+<h2>
+	<%=@vehicle.car.brand.brand_name%> <%=@vehicle.car.name%>(<%=@vehicle.master_variant.variant%>)
+</h2>
+<%= link_to 'Edit', edit_vehicle_path(@vehicle) %> |
+<%= link_to 'Back', vehicles_path %>

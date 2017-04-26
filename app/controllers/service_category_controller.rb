@@ -1,0 +1,2 @@
+class ServiceCategoryController < ApplicationController
+end

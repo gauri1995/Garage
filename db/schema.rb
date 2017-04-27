@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20170427074548) do
+=======
+ActiveRecord::Schema.define(version: 20170427074814) do
+>>>>>>> c89907df200b08025891f4cc94c7fd22841f8f40
 
   create_table "brands", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "brand_name"
@@ -84,6 +88,15 @@ ActiveRecord::Schema.define(version: 20170427074548) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  create_table "vehicle_start_years", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "master_start_year_id"
+    t.integer  "vehicle_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.index ["master_start_year_id"], name: "index_vehicle_start_years_on_master_start_year_id", using: :btree
+    t.index ["vehicle_id"], name: "index_vehicle_start_years_on_vehicle_id", using: :btree
+  end
+
   create_table "vehicles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "car_id"
     t.integer  "master_variant_id"
@@ -93,4 +106,6 @@ ActiveRecord::Schema.define(version: 20170427074548) do
     t.index ["master_variant_id"], name: "index_vehicles_on_master_variant_id", using: :btree
   end
 
+  add_foreign_key "vehicle_start_years", "master_start_years"
+  add_foreign_key "vehicle_start_years", "vehicles"
 end

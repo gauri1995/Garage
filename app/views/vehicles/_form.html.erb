@@ -1,3 +1,4 @@
+<% javascript 'dynamic_cars' %>
 <%= form_for(vehicle) do |f| %>
   <% if vehicle.errors.any? %>
     <div id="error_explanation">
@@ -11,6 +12,9 @@
     </div>
   <% end %>
   <div class="field">
+    <%= collection_select(:vehicle, :car_id, Brand.all, :id, :brand_name) %>
+  </div>
+  <div  id="car_field">
     <%= collection_select(:vehicle, :car_id, Car.all, :id, :name) %>
   </div>
   <div class="field">

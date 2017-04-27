@@ -1,0 +1,33 @@
+<%= form_for(user_vehicle) do |f| %>
+  <% if user_vehicle.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user_vehicle.errors.count, "error") %> prohibited this user_vehicle from being saved:</h2>
+
+      <ul>
+      <% user_vehicle.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+   <div class="field">
+       <%=f.label :registration_number%>
+       <%=f.text_field :registration_number%>
+    </div>
+     <div class="field">
+       <%=f.label :year%>
+       <%=f.text_field :year%>
+    </div>
+    <div class="field">
+    <%= collection_select(:user_vehicle, :vehicle_id, Brand.all , :id, :brand_name ) %>
+  </div>
+    <div class="field">
+    <%= collection_select(:user_vehicle, :vehicle_id, Car.all , :id, :name ) %>
+  </div>
+  <div class="field">
+    <%= collection_select(:user_vehicle, :vehicle_id, MasterVariant.all, :id, :variant ) %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

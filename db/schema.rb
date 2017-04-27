@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170426103441) do
+ActiveRecord::Schema.define(version: 20170427074548) do
 
   create_table "brands", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "brand_name"
@@ -42,6 +42,26 @@ ActiveRecord::Schema.define(version: 20170426103441) do
     t.string   "category_name"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+  end
+
+  create_table "services", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "name"
+    t.text     "description",         limit: 65535
+    t.integer  "service_category_id"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.index ["service_category_id"], name: "index_services_on_service_category_id", using: :btree
+  end
+
+  create_table "user_vehicles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "registration_number"
+    t.integer  "year"
+    t.integer  "user_id"
+    t.integer  "vehicle_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.index ["user_id"], name: "index_user_vehicles_on_user_id", using: :btree
+    t.index ["vehicle_id"], name: "index_user_vehicles_on_vehicle_id", using: :btree
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

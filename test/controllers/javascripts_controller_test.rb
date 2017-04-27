@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ServiceCategoryControllerTest < ActionDispatch::IntegrationTest
+class JavascriptsControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end

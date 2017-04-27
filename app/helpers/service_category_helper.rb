@@ -1,2 +1,0 @@
-module ServiceCategoryHelper
-end

@@ -14,8 +14,10 @@ ActiveRecord::Schema.define(version: 20170508075550) do
 
   create_table "brands", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "brand_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "user_id",    default: 1
+    t.index ["user_id"], name: "index_brands_on_user_id", using: :btree
   end
 
   create_table "cars", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -116,6 +118,7 @@ ActiveRecord::Schema.define(version: 20170508075550) do
     t.index ["master_variant_id"], name: "index_vehicles_on_master_variant_id", using: :btree
   end
 
+  add_foreign_key "brands", "users"
   add_foreign_key "users", "roles"
   add_foreign_key "vehicle_start_years", "master_start_years"
   add_foreign_key "vehicle_start_years", "vehicles"

@@ -26,19 +26,6 @@ class VehiclesController < ApplicationController
   # POST /vehicles
   # POST /vehicles.json
   def create
-    
-     @brand = Brand.new(brand_params)
-       respond_to do |format|
-      if @brand.save
-        format.html { render :new }
-      end
-    end
-      @car = Car.new(car_params)
-        respond_to do |format|
-      if @car.save
-        format.html { render :new }
-      end
-    end
       @vehicle = Vehicle.new(vehicle_params)
     respond_to do |format|
       if @vehicle.save

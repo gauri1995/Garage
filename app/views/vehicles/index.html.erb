@@ -28,12 +28,12 @@
    </div> 
   <div class="card">
     <div style="margin:0px 20px;padding: 20px 0px;">
-        <table id="data-table-selection" class="table table-striped table-vmiddle">
+        <table id="data-table-command" class="table table-striped table-vmiddle">
               <thead>
                  <tr>
                      <th data-column-id="id" data-type="vehiclename">VEHICLE NAME</th>
                      <th data-column-id="variant">VARIANT</th>
-                     <th data-column-id="edit">COMMANDS</th>
+                     <th data-column-id="command" data-formatter="commands" data-sortable="false" data-behavior="clickable-row">COMMANDS</th>
                  </tr>
               </thead>
               <tbody>
@@ -41,12 +41,12 @@
                  <tr>
                      <td><%=vehicle.car.name%></td>
                      <td><%=vehicle.master_variant.variant%></td>
-                     <td> 
-                     <%= link_to 'Show', vehicle %>|
-                     <%= link_to 'Edit', edit_vehicle_path(vehicle) %>|
-                      <%= link_to 'Destroy', vehicle, method: :delete, data: { confirm: 'Are you sure?' } %>
-                     </td>
-                 </tr>
+                     <td>
+                       <%= link_to raw('<i class="fa fa-pencil" aria-hidden="true"></i>'), edit_vehicle_path(vehicle), :style => 'color:#5e5e5e;margin-left:10px;' %>
+                       <%= link_to raw('<i class="fa fa-trash-o" aria-hidden="true"></i>'), vehicle, method: :delete, data: { confirm: 'Are you sure?' } , :style => 'color:#5e5e5e;margin-left:10px;'%>
+                       </td>
+                   </tr>
+
                 <% end %>               
               </tbody>
         </table>
@@ -62,10 +62,10 @@
          function closeNav() {
            document.getElementById("mySidenav").style.width = "0";
           }
-  $(document).ready(function(){
-                
-                //Selection
-                $("#data-table-selection").bootgrid({
+   $(document).ready(function(){
+          
+                //Command Buttons
+                $("#data-table-command").bootgrid({
                     css: {
                         icon: 'zmdi icon',
                         iconColumns: 'zmdi-view-module',
@@ -73,10 +73,14 @@
                         iconRefresh: 'zmdi-refresh',
                         iconUp: 'zmdi-expand-less'
                     },
-                    selection: true,
-                    multiSelect: true,
-                    rowSelect: true,
-                    keepSelection: true
-                });           
-            });
+                    formatters: {
+                     
+                        "commands": function(column, row) {
+                            return "<button type=\"button\" class=\"btn btn-icon command-edit waves-effect waves-circle\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-edit\"></span></button> " + 
+                                "<button type=\"button\" class=\"btn btn-icon command-delete waves-effect waves-circle\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-delete\"></span></button>";
+                        }
+                    }
+                });
+              });
+  
 </script> 

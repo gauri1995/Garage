@@ -14,7 +14,7 @@
   <div class="field">
     <%=f.label :brand ,"Select a brand"%>
     <br>
-     <%= f.collection_select :brand_id, Brand.all, :id, :id ,{:prompt => 'Select Brand'},{:id => 'vehicle_brand_id', :onChange => "aa()" }%>
+     <%= f.collection_select :brand_id, Brand.all, :id, :brand_name ,{:prompt => 'Select Brand'},{:id => 'vehicle_brand_id', :onChange => "aa()" }%>
     
      <% if current_page?(new_vehicle_path)%>
      Want to add new Brand?
@@ -82,10 +82,11 @@
 <script type="text/javascript">
 function aa(){
         $.ajax({type: "GET",url: "/dynamic",data: {
-        brand_id: $("#vehicle_brand_id option:selected").text()
-      }
-           });  
+        brand_id: $("#vehicle_brand_id option:selected").val()
+           }
+        });  
 }
+
 jQuery(function() {
   ($('select#vehicle_car_id')).hide();
   return ($('select#vehicle_brand_id')).change(function() {
@@ -94,3 +95,4 @@ jQuery(function() {
   });
 });
 </script>
+

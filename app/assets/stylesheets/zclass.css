@@ -14,6 +14,25 @@
     height: 100%;
     opacity: .7;
 }
+
+.image2{
+    background: url("/assets/garage2.jpg");
+    background-size: cover;
+     background-repeat: no-repeat;
+    height: 156px;
+    width: 235px;
+    padding: 0px;
+    opacity: 0.8;
+  }
+  .overlay2{
+    position: absolute;
+    top: 0%;
+    z-index: 3;
+    background-color: #080d15;
+    width: 100%;
+    height: 100%;
+    opacity: .65;
+}
 .heading{
     text-align: center;
     font-size: 58px;
@@ -86,7 +105,7 @@ hr {
 }
 
 .sidenav a {
-    padding: 8px 8px 8px 32px;
+    /*padding: 8px 8px 8px 32px;*/
     text-decoration: none;
     font-size: 25px;
     color: white;

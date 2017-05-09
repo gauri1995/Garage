@@ -2,8 +2,45 @@
   a:hover { 
     color:#ef4224;
    }
+
+   a .profile-pic{
+    padding: 12px;
+   }
+
+   a .profile-pic > img{
+  width: 47px;
+  height: 47px;
+  border-radius: 47px;
+  border: 3px solid rgba(0, 0, 0, 0.14);
+  box-sizing: content-box;
+   }
+
+   a .profile-info{
+    background: rgba(0, 0, 0, 0.45);
+    padding: 7px 14px;
+    color: #fff;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    position: relative;
+   }
+   
+   div.profile-info{
+   padding-top: 10px;
+padding-bottom: 10px;
+/* margin: auto; */
+padding-left: 10px;
+background: rgba(0, 0, 0, 0.45);
+margin-top: 56px;
+   }
+
+.style_image {
+  border: 1px solid white;
+  border-radius:  50px ;
+  margin-top:10px;
+  margin-left: 10px;
+}
 </style>
-<div class="blue h-60">
+<div class="blue h-60" style="position:relative;">
      <span class="sidebtn" onclick="openNav()">&#9776;</span>
       <span style="margin-left: 20px;"><img src="assets/logo.png" height="60" width="80" style="margin-top: -33px;"></span>
       <%if user_signed_in?%>
@@ -13,14 +50,36 @@
       <% end %>
 </div>
 
-<div id="mySidenav" class="sidenav blue" style="z-index: 10">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="/admin_landing" class="active">Homepage</a><hr>
-    <a href="#">Registered User</a><hr>
-    <a href="/coadmin">Co-admin</a><hr>
-    <a href="#">Vehicles</a><hr>
-    <a href="#">Services</a>
+<div id="mySidenav" class="sidenav blue" style="z-index: 10;position:absolute;top:78px;overflow: scroll;">
+    <a href="javascript:void(0)" class="closebtn" style="z-index:5000;" onclick="closeNav()">&times;</a>  
+    
+  <div class="col-xs-12 co;-col-sm-12 col-md-12 col-lg-12 " style="z-index: 999;padding:0px;">
+  <div class="image2" style="position: relative; z-index:-20;top:0px; margin-top: -60px;margin-bottom: 30px;">
+  
+                        <div class="profile-pic" >
+                            <% if user_signed_in? %>
+                               <%= image_tag current_user.photo.url( :thumb), :class => "style_image" %>
+                            <% end %>
+                        </div>
+
+                        <div class="profile-info">
+                            <% if user_signed_in? %>
+                               <%= current_user.name %>
+                            <% end %>
+                        </div></div></div>
+    
+    <a href="/admin_landing" class="active" style="font-size:15px;padding: 10px;"><i class="zmdi zmdi-home" style="padding-right: 20px;
+    padding-left: 20px; font-size:15px;"></i>Homepage</a>
+    <a href="#" style="font-size:15px;padding: 10px;"><i class="zmdi zmdi-account" style="padding-right: 20px;
+    padding-left: 20px;font-size:15px;"></i>Registered User</a>
+    <a href="/coadmin" style="font-size:15px;padding: 10px;"><i class="zmdi zmdi-accounts-list-alt" style="padding-right: 20px;
+    padding-left: 20px;font-size:15px;"></i>Co-admin</a>
+    <a href="#" style="font-size:15px;padding: 10px;"><i class="fa fa-car" style="padding-right: 18px;
+    padding-left: 18px;font-size:15px;"></i>Vehicles</a>
+    <a href="#" style="font-size:15px;padding: 10px;"><i class="fa fa-gavel" style="padding-right: 18px;
+    padding-left: 18px;font-size:15px;"></i>Services</a>
 </div>
+
 <div class="card" >
     <div class="card-header">
          <h2>Review Table</h2>

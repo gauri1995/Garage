@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   belongs_to :role
   has_many :user_vehicles
-  has_attached_file :photo, :styles => { :small => "200x200>" },
+  has_attached_file :photo, :styles => { :small => "200x200>" , :thumb => "50x50>"},
                   :default_url => 'avatar.png'
 
 validates_attachment_size :photo, :less_than => 5.megabytes

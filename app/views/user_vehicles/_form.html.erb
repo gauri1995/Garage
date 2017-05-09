@@ -1,5 +1,5 @@
-<%= form_for(user_vehicle) do |f| %>
-  <% if user_vehicle.errors.any? %>
+<%= form_tag(user_vehicle) do %>
+ <% if user_vehicle.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(user_vehicle.errors.count, "error") %> prohibited this user_vehicle from being saved:</h2>
 
@@ -11,23 +11,24 @@
     </div>
   <% end %>
    <div class="field">
-       <%=f.label :registration_number%>
-       <%=f.text_field :registration_number%>
+       Registration no. =
+       <%=text_field_tag 'user_vehicle[registration_number]'%>
     </div>
      <div class="field">
-       <%=f.label :year%>
-       <%=f.text_field :year%>
+       Year =
+       <%=text_field_tag "user_vehicle[year]"%>
     </div>
     <div class="field">
-    <%= collection_select(:user_vehicle, :vehicle_id, Brand.all , :id, :brand_name ) %>
+    <%=select_tag "brand", options_for_select(Brand.all.collect{|u| [u.brand_name, u.id]})%>
+   
   </div>
-    <div class="field">
-    <%= collection_select(:user_vehicle, :vehicle_id, Car.all , :id, :name ) %>
+   <div class="field">
+   <%=select_tag "car", options_for_select( Car.all.collect{|u| [u.name, u.id]})%>
   </div>
   <div class="field">
-    <%= collection_select(:user_vehicle, :vehicle_id, MasterVariant.all, :id, :variant ) %>
-  </div>
+  <%=select_tag "variant", options_for_select(MasterVariant.all.collect{|u| [u.variant, u.id]})%>
+  </div> 
   <div class="actions">
-    <%= f.submit %>
+    <%= submit_tag 'Save'%>
   </div>
 <% end %>

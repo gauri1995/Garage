@@ -14,7 +14,9 @@ class UserVehiclesController < ApplicationController
 
   # GET /user_vehicles/new
   def new
+
     @user_vehicle = UserVehicle.new
+
   end
 
   # GET /user_vehicles/1/edit
@@ -25,7 +27,9 @@ class UserVehiclesController < ApplicationController
   # POST /user_vehicles.json
   def create
     @user_vehicle = UserVehicle.new(user_vehicle_params)
-
+    @user_vehicle.user_id = current_user.id
+    @user_vehicle.vehicle_id =  Vehicle.where(:car_id => params[:car],:master_variant_id => params[:variant]).first.id
+    
     respond_to do |format|
       if @user_vehicle.save
         format.html { redirect_to @user_vehicle, notice: 'User vehicle was successfully created.' }
@@ -69,6 +73,6 @@ class UserVehiclesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_vehicle_params
-     params.require(:user_vehicle).permit(:car_id , :master_variant_id ,:year ,:registration_number , :vehicle_id)
+     params.require(:user_vehicle).permit(:registration_number,:year)
     end
 end

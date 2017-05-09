@@ -14,7 +14,7 @@ class BrandsController < ApplicationController
 
   # GET /brands/new
   def new
-    @brand = Brand.new
+      @brand = Brand.new
   end
 
   # GET /brands/1/edit
@@ -59,6 +59,18 @@ class BrandsController < ApplicationController
       format.html { redirect_to brands_url, notice: 'Brand was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+  def terms
+  end
+  def faq
+  end
+  def landing
+  end
+  def ourprofile
+  end
+  def admin_landing
+  end
+  def coadmin
   end
 
   private

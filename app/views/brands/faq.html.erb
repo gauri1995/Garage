@@ -1,0 +1,49 @@
+<style type="text/css">
+	h3{
+		color: #37383a;
+	}
+</style>
+<section id="content">
+<div class="container">
+<div class="block-header" style="font-size: 25px;">FAQs</div>
+<div class="card">        
+<div style="margin:0px 20px;padding: 20px ;">
+<table>
+<tr>
+ <td colspan="2">Search</td>
+</tr>
+<tr>
+	<td><input type="text" name="_Query" size="15"></td>
+	<td><input type="button" name="Search" value="GO!!" onclick="doSearch(this.form.Query);"/>
+</td>
+</tr> 
+</table>
+<h3>&nbsp;<br />How do I list my parking spot on Garage?</h3><p>Just take a photo, tell us what days and time you would like the spot to be shared, and how much you would like to charge on an hourly/daily/weekly/monthly basis. We’ll take care of the rest and you’ll start making money from your parking spot in not time.</p><h3>How do I get paid after someone rents my parking spot?</h3><p>All net revenue from your parking spot will be remitted to you within 7 business days of any earnings. You will need a <a href="https://stripe.com/">Stripe</a> account to receive your earnings.</p><h3>Does Garage charge me for listing my spot?</h3><p>No – and it never will. You can list your parking spot for free. Garage charges a 20% service fee on each transaction – so we don’t get paid until you make money. The service fee can be reduced by 1% each time you invite a friend to use Garage.</p><h3>Help - I’m having trouble with the app!</h3><p>Please email us at ­– info@garageapp.co and we’ll get back to you asap.</p><h3>There’s already a car in a spot that I booked.</h3><p>Please email us at info@garageapp.co and describe the situation as best as possible. We’ll find you an alternative spot within reasonable distance within 15 minutes. If we are not able to, your booking amount will be fully refunded + we’ll give you in-app credits towards the rental of your next spot with Garage.</p><h3>Someone has overstayed their parking on my spot.</h3><p>We send notifications to drivers ten minutes before their parking expires, and also again when it does expire. If more than ten minutes have passed since their parking expired, you can get the car towed away at a cost to the driver.</p><h3>There are no parking spots near where I want one – can you help?</h3><p>Yes! Simply let us know where you want a parking spot through the “Find Me A Spot” feature from the Rent A Spot screen on the app. We’ll find you a spot near your preferred location within 48 hours. Best of all – you have no obligations to use it.</p><h3>How much should I charge for my spot?</h3><p>Check out our pricing guide <a href="#">here</a> to see what parking spots around you are renting for. We recommend pricing your spot at 60 – 70% the price of the nearest parking lot. Events lead to surge pricing, which can lead to higher revenue. We’ll be sure to let you know via your preferred mode of communication when that would be possible.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<script type="text/javascript">
+       function doSearch ( s ) {
+var regExp1 = /\bfield\b/;
+var regExp2 = /[(,),<,>,\[,\]]/;
+var str = s.value; if ( str == "" ){ 
+alert("Please be sure to enter something to search for.");
+s.focus();
+} else { 
+if ( typeof regExp1.source != 'undefined' ) //supports regular expression testing 
+if ( regExp1.test( str ) || regExp2.test( str ) ){
+var alrt = "Please note that you can not include:"; 
+alrt += "\n\nThe reserved word 'field'\nthe characters [, ], (, ), < or >";
+alrt += "\n\nin your search query!\n\nIf you are confident that you know";
+alrt += "\nwhat you are doing, then you can\nmanually produce the URL required."
+s.focus();
+return alert( alrt );
+}
+openDbRelativeURL("All?SearchView&Query=" + escape( str ) + "&start=1&count=10");
+}
+}
+        </script>
+
+          

@@ -1,5 +1,5 @@
-<% javascript 'dynamic_cars' %>
-<%= form_for(vehicle) do |f| %>
+<div class="m-l-25">
+<%= form_for(vehicle) do |f|%>
   <% if vehicle.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(vehicle.errors.count, "error") %> prohibited this vehicle from being saved:</h2>
@@ -12,16 +12,85 @@
     </div>
   <% end %>
   <div class="field">
-    <%= collection_select(:vehicle, :car_id, Brand.all, :id, :brand_name) %>
-  </div>
-  <div  id="car_field">
-    <%= collection_select(:vehicle, :car_id, Car.all, :id, :name) %>
+    <%=f.label :brand ,"Select a brand"%>
+    <br>
+     <%= f.collection_select :brand_id, Brand.all, :id, :id ,{:prompt => 'Select Brand'},{:id => 'vehicle_brand_id', :onChange => "aa()" }%>
+    
+     <% if current_page?(new_vehicle_path)%>
+     Want to add new Brand?
+     <button type="button" class="btn button" data-toggle="modal" data-target="#myModal">Add new Brand</button>
+     <%end%>
+
+
+  <div class="field target">
+     <%=f.label :car ,"Select a car"%>
+      <br>
+     <%= f.grouped_collection_select :car_id, Brand.order(:brand_name), :cars,:brand_name,:id, :name , {:prompt => 'Select Car'} , {:id => 'vehicle_car_id' } %>
+      <% if current_page?(new_vehicle_path)%>
+    Want to add new Car?
+     <button type="button" class="btn button" data-toggle="modal" data-target="#myModal1">Create new Car</button>
+     <%end%>
   </div>
   <div class="field">
-    <%= collection_select(:vehicle, :master_variant_id, MasterVariant.all, :id, :variant) %>
+    <%=f.label :variant ,"Select a variant"%>
+    <br>
+    <%= f.collection_select :master_variant_id, MasterVariant.all, :id, :variant ,{:prompt => 'Select Variant'} %>
   </div>
-
+  <br>
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+</div>
+ <% if current_page?(new_vehicle_path)%>
+  <!-- Modal -->
+     <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal">&times;</button>
+               <div>Add new Brand</div>
+            </div>
+            <div class="modal-body">
+             <%= render 'brands/form'  %>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+     </div>
+  </div>
+  <!-- Modal1 -->
+     <div class="modal fade" id="myModal1" role="dialog">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div>Add new Car</div>
+            </div>
+            <div class="modal-body">
+             <%= render 'cars/form'  %>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+     </div>
+<%end%>
+<script type="text/javascript">
+function aa(){
+        $.ajax({type: "GET",url: "/dynamic",data: {
+        brand_id: $("#vehicle_brand_id option:selected").text()
+      }
+           });  
+}
+jQuery(function() {
+  ($('select#vehicle_car_id')).hide();
+  return ($('select#vehicle_brand_id')).change(function() {
+     ($('#vehicle_brand_id option:selected')).text();
+      return ($('select#vehicle_car_id')).show();
+  });
+});
+</script>

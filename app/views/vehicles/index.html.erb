@@ -1,25 +1,82 @@
-<h1>Vehicles</h1>
+<style type="text/css">
+  a:hover { 
+    color:#ef4224;
+   }
+</style>
+<div class="blue h-60">
+     <span class="sidebtn" onclick="openNav()">&#9776;</span>
+      <span style="margin-left: 20px;"><img src="assets/logo.png" height="60" width="80" style="margin-top: -33px;"></span>
+       <%if user_signed_in?%>
+      <span class="sign-out">
+      <%=link_to "Sign Out",destroy_user_session_path, method: :delete ,:style =>'color=white;' %>
+      <%=link_to raw('<i class="fa fa-sign-out" aria-hidden="true"></i>'),destroy_user_session_path, method: :delete ,:style =>'color=white;' %></span>
+      <%end%>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div id="mySidenav" class="sidenav blue" style="z-index: 10">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="/admin_landing" class="active">Homepage</a><hr>
+    <a href="#">Registered User</a><hr>
+    <a href="/coadmin">Co-admin</a><hr>
+    <a href="#">Vehicles</a><hr>
+    <a href="#">Services</a>
+</div>
+<div class="container">
+   <div style="height: 70px;margin-top: 20px;">
+    <span class="block-header" style="font-size: 25px;">VEHICLES</span>
+    <span><a href="/vehicles/new"><i class="fa fa-plus-circle" aria-hidden="true" style="float: right;font-size: 50px;color: #ef4224;"></i></a></span>
+   </div> 
+  <div class="card">
+    <div style="margin:0px 20px;padding: 20px 0px;">
+        <table id="data-table-selection" class="table table-striped table-vmiddle">
+              <thead>
+                 <tr>
+                     <th data-column-id="id" data-type="vehiclename">VEHICLE NAME</th>
+                     <th data-column-id="variant">VARIANT</th>
+                     <th data-column-id="edit">COMMANDS</th>
+                 </tr>
+              </thead>
+              <tbody>
+                <% @vehicles.each do |vehicle| %>
+                 <tr>
+                     <td><%=vehicle.car.name%></td>
+                     <td><%=vehicle.master_variant.variant%></td>
+                     <td> 
+                     <%= link_to 'Show', vehicle %>|
+                     <%= link_to 'Edit', edit_vehicle_path(vehicle) %>|
+                      <%= link_to 'Destroy', vehicle, method: :delete, data: { confirm: 'Are you sure?' } %>
+                     </td>
+                 </tr>
+                <% end %>               
+              </tbody>
+        </table>
+    </div>
+  </div>
+</div>
 
-  <tbody>
-    <% @vehicles.each do |vehicle| %>
-      <tr>
-      <td><%=vehicle.car.name%></td>
-      <td><%=vehicle.master_variant.variant%></td>
-        <td><%= link_to 'Show', vehicle %></td>
-        <td><%= link_to 'Edit', edit_vehicle_path(vehicle) %></td>
-        <td><%= link_to 'Destroy', vehicle, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<script type="text/javascript">
+  function openNav() {
+          document.getElementById("mySidenav").style.width = "250px";
+        }
 
-<br>
-
-<%= link_to 'New Vehicle', new_vehicle_path %>
+         function closeNav() {
+           document.getElementById("mySidenav").style.width = "0";
+          }
+  $(document).ready(function(){
+                
+                //Selection
+                $("#data-table-selection").bootgrid({
+                    css: {
+                        icon: 'zmdi icon',
+                        iconColumns: 'zmdi-view-module',
+                        iconDown: 'zmdi-expand-more',
+                        iconRefresh: 'zmdi-refresh',
+                        iconUp: 'zmdi-expand-less'
+                    },
+                    selection: true,
+                    multiSelect: true,
+                    rowSelect: true,
+                    keepSelection: true
+                });           
+            });
+</script> 

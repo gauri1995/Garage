@@ -1,0 +1,89 @@
+<style type="text/css">
+  a:hover { 
+    color:#ef4224;
+   }
+</style>
+<div class="blue h-60">
+     <span class="sidebtn" onclick="openNav()">&#9776;</span>
+      <span style="margin-left: 20px;"><img src="assets/logo.png" height="60" width="80" style="margin-top: -33px;"></span>
+       <%if user_signed_in?%>
+      <span class="sign-out">
+      <%=link_to "Sign Out",destroy_user_session_path, method: :delete ,:style =>'color=white;' %>
+      <%=link_to raw('<i class="fa fa-sign-out" aria-hidden="true"></i>'),destroy_user_session_path, method: :delete ,:style =>'color=white;' %></span>
+      <%end%>
+</div>
+
+<div id="mySidenav" class="sidenav blue" style="z-index: 10">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="/admin_landing" class="active">Homepage</a><hr>
+    <a href="#">Registered User</a><hr>
+    <a href="/coadmin">Co-admin</a><hr>
+    <a href="#">Vehicles</a><hr>
+    <a href="#">Services</a>
+</div>
+<div class="card" >
+ <% User.where(role_id:2).each do |user| %>
+ <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 center " style="margin-top: 50px;"><%= image_tag user.photo.url(:small) %></div>
+     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 center center-vertically ">
+     <h4>ADMIN NAME:<%=user.name%></h4>
+     <h4>ADMIN EMAIL:<%=user.email%></h4>
+     </div> 
+  </div>
+  <hr>
+ <%end%>
+</div>
+<script type="text/javascript">
+        function openNav() {
+          document.getElementById("mySidenav").style.width = "250px";
+        }
+
+         function closeNav() {
+           document.getElementById("mySidenav").style.width = "0";
+          }
+            $(document).ready(function(){
+                //Basic Example
+                $("#data-table-basic").bootgrid({
+                    css: {
+                        icon: 'zmdi icon',
+                        iconColumns: 'zmdi-view-module',
+                        iconDown: 'zmdi-expand-more',
+                        iconRefresh: 'zmdi-refresh',
+                        iconUp: 'zmdi-expand-less'
+                    },
+                });
+                
+                //Selection
+                $("#data-table-selection").bootgrid({
+                    css: {
+                        icon: 'zmdi icon',
+                        iconColumns: 'zmdi-view-module',
+                        iconDown: 'zmdi-expand-more',
+                        iconRefresh: 'zmdi-refresh',
+                        iconUp: 'zmdi-expand-less'
+                    },
+                    selection: true,
+                    multiSelect: true,
+                    rowSelect: true,
+                    keepSelection: true
+                });
+                
+                //Command Buttons
+                $("#data-table-command").bootgrid({
+                    css: {
+                        icon: 'zmdi icon',
+                        iconColumns: 'zmdi-view-module',
+                        iconDown: 'zmdi-expand-more',
+                        iconRefresh: 'zmdi-refresh',
+                        iconUp: 'zmdi-expand-less'
+                    },
+                    formatters: {
+                        "commands": function(column, row) {
+                            return "<button type=\"button\" class=\"btn btn-icon command-edit waves-effect waves-circle\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-edit\"></span></button> " + 
+                                "<button type=\"button\" class=\"btn btn-icon command-delete waves-effect waves-circle\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-delete\"></span></button>";
+                        }
+                    }
+                });
+            });
+</script>
+ 

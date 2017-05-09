@@ -15,6 +15,8 @@ class VehiclesController < ApplicationController
   # GET /vehicles/new
   def new
     @vehicle = Vehicle.new
+    @brand = Brand.new
+    @car = Car.new
   end
 
   # GET /vehicles/1/edit
@@ -24,8 +26,20 @@ class VehiclesController < ApplicationController
   # POST /vehicles
   # POST /vehicles.json
   def create
-    @vehicle = Vehicle.new(vehicle_params)
-
+    
+     @brand = Brand.new(brand_params)
+       respond_to do |format|
+      if @brand.save
+        format.html { render :new }
+      end
+    end
+      @car = Car.new(car_params)
+        respond_to do |format|
+      if @car.save
+        format.html { render :new }
+      end
+    end
+      @vehicle = Vehicle.new(vehicle_params)
     respond_to do |format|
       if @vehicle.save
         format.html { redirect_to @vehicle, notice: 'Vehicle was successfully created.' }
@@ -60,6 +74,12 @@ class VehiclesController < ApplicationController
       format.json { head :no_content }
     end
   end
+  def dynamic
+    @cars = Car.where("brand_id = ?", params[:brand_id])
+    respond_to do |format|
+      format.js          
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -69,6 +89,12 @@ class VehiclesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def vehicle_params
-       params.require(:vehicle).permit(:car_id , :master_variant_id)
+       params.require(:vehicle).permit(:brand_id, :car_id , :master_variant_id )
+    end
+     def brand_params
+       params.require(:brand).permit(:brand_name)
+    end
+     def car_params
+      params.require(:car).permit(:name , :brand_id)
     end
 end

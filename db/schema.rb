@@ -10,16 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20170427074548) do
-=======
-ActiveRecord::Schema.define(version: 20170427074814) do
->>>>>>> c89907df200b08025891f4cc94c7fd22841f8f40
+ActiveRecord::Schema.define(version: 20170508075550) do
 
   create_table "brands", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "brand_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "user_id",    default: 1
+    t.index ["user_id"], name: "index_brands_on_user_id", using: :btree
   end
 
   create_table "cars", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -38,6 +36,12 @@ ActiveRecord::Schema.define(version: 20170427074814) do
 
   create_table "master_variants", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "variant"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "roles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -84,8 +88,14 @@ ActiveRecord::Schema.define(version: 20170427074814) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.integer  "role_id",                default: 1
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+    t.index ["role_id"], name: "index_users_on_role_id", using: :btree
   end
 
   create_table "vehicle_start_years", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -102,10 +112,15 @@ ActiveRecord::Schema.define(version: 20170427074814) do
     t.integer  "master_variant_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.integer  "brand_id"
+    t.index ["brand_id"], name: "index_vehicles_on_brand_id", using: :btree
     t.index ["car_id"], name: "index_vehicles_on_car_id", using: :btree
     t.index ["master_variant_id"], name: "index_vehicles_on_master_variant_id", using: :btree
   end
 
+  add_foreign_key "brands", "users"
+  add_foreign_key "users", "roles"
   add_foreign_key "vehicle_start_years", "master_start_years"
   add_foreign_key "vehicle_start_years", "vehicles"
+  add_foreign_key "vehicles", "brands"
 end

@@ -1,0 +1,122 @@
+<style type="text/css">
+  a:hover { 
+    color:#ef4224;
+   }
+</style>
+<div class="blue h-60">
+     <span class="sidebtn" onclick="openNav()">&#9776;</span>
+      <span style="margin-left: 20px;"><img src="assets/logo.png" height="60" width="80" style="margin-top: -33px;"></span>
+      <%if user_signed_in?%>
+      <span class="sign-out">
+      <%=link_to "Sign Out",destroy_user_session_path, method: :delete ,:style =>'color=white;' %>
+      <%=link_to raw('<i class="fa fa-sign-out" aria-hidden="true"></i>'),destroy_user_session_path, method: :delete ,:style =>'color=white;' %></span>
+      <% end %>
+</div>
+
+<div id="mySidenav" class="sidenav blue" style="z-index: 10">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="/admin_landing" class="active">Homepage</a><hr>
+    <a href="#">Registered User</a><hr>
+    <a href="/coadmin">Co-admin</a><hr>
+    <a href="#">Vehicles</a><hr>
+    <a href="#">Services</a>
+</div>
+<div class="card" >
+    <div class="card-header">
+         <h2>Review Table</h2>
+    </div>
+                        
+    <table id="data-table-command" class="table table-striped table-vmiddle">
+        <thead>
+            <tr>
+                <th data-column-id="id" data-type="numeric">User Id</th>
+                <th data-column-id="sender">Booking Id</th>
+                <th data-column-id="received" data-order="desc">User vehicle reg no.</th>
+                 <th data-column-id="brand">Brand</th>
+                <th data-column-id="car">Car</th>
+                <th data-column-id="service">Services to be availed</th>
+                <th data-column-id="timeslot">Time Slot</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% User.all.each do |user| %>
+                     <tr>
+                       <td><%= user.id%></td>
+                       <td></td>
+                        <td>
+                       <% user.user_vehicles.each do |user_vehicle|%>
+                         <%= user_vehicle.registration_number%>,
+                        <%end%>
+                        </td>
+                       <td>
+                        <% user.user_vehicles.each do |user_vehicle|%>
+                         <%=user_vehicle.vehicle.car.brand.brand_name%>,
+                        <%end%> 
+                       </td>
+                         <td>
+                        <% user.user_vehicles.each do |user_vehicle|%>
+                         <%=user_vehicle.vehicle.car.name%>,
+                        <%end%> 
+                       </td>
+                       <td></td>
+                       <td></td>
+                      </tr>
+                    <% end %>       
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+        function openNav() {
+          document.getElementById("mySidenav").style.width = "250px";
+        }
+
+         function closeNav() {
+           document.getElementById("mySidenav").style.width = "0";
+          }
+            $(document).ready(function(){
+                //Basic Example
+                $("#data-table-basic").bootgrid({
+                    css: {
+                        icon: 'zmdi icon',
+                        iconColumns: 'zmdi-view-module',
+                        iconDown: 'zmdi-expand-more',
+                        iconRefresh: 'zmdi-refresh',
+                        iconUp: 'zmdi-expand-less'
+                    },
+                });
+                
+                //Selection
+                $("#data-table-selection").bootgrid({
+                    css: {
+                        icon: 'zmdi icon',
+                        iconColumns: 'zmdi-view-module',
+                        iconDown: 'zmdi-expand-more',
+                        iconRefresh: 'zmdi-refresh',
+                        iconUp: 'zmdi-expand-less'
+                    },
+                    selection: true,
+                    multiSelect: true,
+                    rowSelect: true,
+                    keepSelection: true
+                });
+                
+                //Command Buttons
+                $("#data-table-command").bootgrid({
+                    css: {
+                        icon: 'zmdi icon',
+                        iconColumns: 'zmdi-view-module',
+                        iconDown: 'zmdi-expand-more',
+                        iconRefresh: 'zmdi-refresh',
+                        iconUp: 'zmdi-expand-less'
+                    },
+                    formatters: {
+                        "commands": function(column, row) {
+                            return "<button type=\"button\" class=\"btn btn-icon command-edit waves-effect waves-circle\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-edit\"></span></button> " + 
+                                "<button type=\"button\" class=\"btn btn-icon command-delete waves-effect waves-circle\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-delete\"></span></button>";
+                        }
+                    }
+                });
+            });
+</script>
+ 

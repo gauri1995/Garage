@@ -157,19 +157,36 @@ hr {
 	margin-left: 25px;
 }
 .button{
-	background-color: #ef4224;
+	background-color: #EF634B;
 	color: white;
 }
 #footer {
     bottom: 0;
     width: 100%;
     position: absolute;
-    height: $height-footer;
+    height: 150px;
     background-color: #466790;
     }
-    .footer-block {
+.footer-block {
       margin: 20px 0;
     }
 .m-b-0{
 	margin-bottom: 0px;
+}
+.footer-content{
+	padding: 10px;
+	font-size: 15px;
+	font-weight: 500;
+}
+.footer-paragraph{
+
+  font-size: 15px;
+  color: white;
+  padding-top: 15px;
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-bottom: 10px;
+}
+.white{
+	color: white;
 }

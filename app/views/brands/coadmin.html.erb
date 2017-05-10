@@ -58,7 +58,7 @@ margin-top: 56px;
   
                         <div class="profile-pic" >
                             <% if user_signed_in? %>
-                               <%= image_tag current_user.photo.url( :thumb), :class => "style_image" %>
+                               <%= image_tag current_user.photo.url( :thumb), :class => "style_image" ,:style => "height:50px;" %>
                             <% end %>
                         </div>
 

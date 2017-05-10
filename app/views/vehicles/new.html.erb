@@ -1,38 +1,117 @@
-<style type="text/css">
-  a:hover { 
-    color:#EF634B;
-   }
-</style>
-<div class="blue h-60">
-     <span class="sidebtn" onclick="openNav()">&#9776;</span>
-      <span style="margin-left: 20px;"><img src="http://localhost:3000/assets/logo.png" height="60" width="80" style="margin-top: -33px;"></span>
-       <%if user_signed_in?%>
-      <span class="sign-out">
-      <%=link_to "Sign Out",destroy_user_session_path, method: :delete ,:style =>'color=white;' %>
-      <%=link_to raw('<i class="fa fa-sign-out" aria-hidden="true"></i>'),destroy_user_session_path, method: :delete ,:style =>'color=white;' %></span>
-      <%end%>
-</div>
 
-<div id="mySidenav" class="sidenav blue" style="z-index: 10">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="/admin_landing" class="active">Homepage</a><hr>
-    <a href="#">Registered User</a><hr>
-    <a href="/coadmin">Co-admin</a><hr>
-    <a href="#">Vehicles</a><hr>
-    <a href="#">Services</a>
-</div>
-<h1 class="m-l-25">New Vehicle</h1>
-<div class="card m-b-0">
+<nav class="navbar navbar-default " role="navigation" style="position:relative;background-color: #466790;border: 0px;">
+  <div class="container">
+    <div class="navbar-header">
+      <a id="menu-toggle" href="#" class="navbar-toggle">
+          <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+      </a>
+        <a class="navbar-brand" href="home.xhtml">
+          <span class="logo abc"><img src="/assets/logo.png" height="60" width="80" ></span>
+        </a>
+    </div>
+    <div>
+       <%if user_signed_in?%>
+              <span class="sign-out" >
+                 <%=link_to "Sign Out",destroy_user_session_path, method: :delete ,:style =>'color=white;' %>
+                 <%=link_to raw('<i class="fa fa-sign-out" aria-hidden="true"></i>'),destroy_user_session_path, method: :delete ,:style =>'color=white;' %>
+              </span>
+           <% end %>
+    </div>
+    <div id="sidebar-wrapper" class="sidebar-toggle">
+      <ul class="sidebar-nav">
+           <div class="col-xs-12 co;-col-sm-12 col-md-12 col-lg-12 " style="z-index: 999;padding:0px;">
+              <div class="image2" style="position: relative; z-index:-20;top:0px; margin-top: -60px;margin-bottom: 30px;">
+  
+                        <div class="profile-pic" >
+                            <% if user_signed_in? %>
+                               <%= image_tag current_user.photo.url( :thumb), :class => "style_image",:style => 'height:50px;' %>
+                            <% end %>
+                        </div>
+
+                        <div class="profile-info">
+                            <% if user_signed_in? %>
+                               <%= current_user.name %>
+                            <% end %>
+                        </div>
+              </div>
+           </div>
+    
+           <li><a href="/admin_landing" class="active" style="font-size:15px;">
+               <i class="zmdi zmdi-home" style=" font-size:15px;">
+                </i>Homepage
+           </a></li>
+           <li><a href="#" style="font-size:15px;">
+               <i class="zmdi zmdi-account" style="font-size:15px;">
+               </i>Registered User
+           </a></li>
+            <li><a href="/coadmin" style="font-size:15px;">
+               <i class="zmdi zmdi-accounts-list-alt" style="font-size:15px;">
+               </i>Co-admin
+            </a></li>
+             <li><a href="/vehicles" style="font-size:15px;">
+                   <i class="fa fa-car" style="font-size:15px;">
+                   </i>Vehicles
+              </a></li>
+              <li><a href="#" style="font-size:15px;">
+                  <i class="fa fa-gavel" style="font-size:15px;">                     </i>Services
+              </a></li>
+
+            <hr style="margin:25px">
+
+            <li><a style="font-size:15px;" href="#">
+               <i class="fa fa-table" style="font-size:15px;">
+               </i> Review Table   
+            </a></li>
+            <li><a href="#" style="font-size:15px;">
+                <i class="fa fa-plus square" style="font-size:15px;">
+                 </i>Add Services
+            </a></li>
+            <li><a href="#" style="font-size:15px;padding-bottom:20px;">
+                  <i class="fa fa-plus-square-o" style="font-size:15px;">
+                  </i>Add Vehicles
+            </a></li>
+        
+        </ul>
+    </div>
+   </div>
+</nav>  
+<h2 class="card-body " style="padding-left: 30px;">New Vehicle</h2>
+<hr>
 <%= render 'form', vehicle: @vehicle %>
 <br>
 <%= link_to 'Back', vehicles_path , :style => 'color:black ; margin-left:25px;margin-bottom:20px;color:white;' ,:class =>'btn button'%>
 </div>
 <script type="text/javascript">
-	function openNav() {
-          document.getElementById("mySidenav").style.width = "250px";
-        }
+  $(window).resize(function() {
+  var path = $(this);
+  var contW = path.width();
+  if(contW >= 751){
+    document.getElementsByClassName("sidebar-toggle")[0].style.left="200px";
+  }else{
+    document.getElementsByClassName("sidebar-toggle")[0].style.left="-200px";
+  }
+});
+$(document).ready(function() {
+  $('.dropdown').on('show.bs.dropdown', function(e){
+      $(this).find('.dropdown-menu').first().stop(true, true).slideDown(300);
+  });
+  $('.dropdown').on('hide.bs.dropdown', function(e){
+    $(this).find('.dropdown-menu').first().stop(true, true).slideUp(300);
+  });
+  $("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    var elem = document.getElementById("sidebar-wrapper");
+    left = window.getComputedStyle(elem,null).getPropertyValue("left");
+    if(left == "200px"){
+      document.getElementsByClassName("sidebar-toggle")[0].style.left="-200px";
+    }
+    else if(left == "-200px"){
+      document.getElementsByClassName("sidebar-toggle")[0].style.left="200px";
+    }
+  });
+});
 
-         function closeNav() {
-           document.getElementById("mySidenav").style.width = "0";
-          }
 </script>

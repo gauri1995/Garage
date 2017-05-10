@@ -1,64 +1,32 @@
-<style type="text/css">
-  a:hover { 
-    color:#ef4224;
-   }
-
-   a .profile-pic{
-    padding: 12px;
-   }
-
-   a .profile-pic > img{
-  width: 47px;
-  height: 47px;
-  border-radius: 47px;
-  border: 3px solid rgba(0, 0, 0, 0.14);
-  box-sizing: content-box;
-   }
-
-   a .profile-info{
-    background: rgba(0, 0, 0, 0.45);
-    padding: 7px 14px;
-    color: #fff;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    position: relative;
-   }
-   
-   div.profile-info{
-   padding-top: 10px;
-padding-bottom: 10px;
-/* margin: auto; */
-padding-left: 10px;
-background: rgba(0, 0, 0, 0.45);
-margin-top: 56px;
-   }
-
-.style_image {
-  border: 1px solid white;
-  border-radius:  50px ;
-  margin-top:10px;
-  margin-left: 10px;
-}
-</style>
-<div class="blue h-60" style="position:relative;">
-     <span class="sidebtn" onclick="openNav()">&#9776;</span>
-      <span style="margin-left: 20px;"><img src="assets/logo.png" height="60" width="80" style="margin-top: -33px;"></span>
-      <%if user_signed_in?%>
-      <span class="sign-out">
-      <%=link_to "Sign Out",destroy_user_session_path, method: :delete ,:style =>'color=white;' %>
-      <%=link_to raw('<i class="fa fa-sign-out" aria-hidden="true"></i>'),destroy_user_session_path, method: :delete ,:style =>'color=white;' %></span>
-      <% end %>
-</div>
-
-<div id="mySidenav" class="sidenav blue" style="z-index: 10;position:absolute;top:78px;overflow: scroll;">
-    <a href="javascript:void(0)" class="closebtn" style="z-index:5000;" onclick="closeNav()">&times;</a>  
-    
-  <div class="col-xs-12 co;-col-sm-12 col-md-12 col-lg-12 " style="z-index: 999;padding:0px;">
-  <div class="image2" style="position: relative; z-index:-20;top:0px; margin-top: -60px;margin-bottom: 30px;">
+<nav class="navbar navbar-default " role="navigation" style="position:relative;background-color: #466790;border: 0px;">
+  <div class="container">
+    <div class="navbar-header">
+      <a id="menu-toggle" href="#" class="navbar-toggle">
+          <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+      </a>
+        <a class="navbar-brand" href="home.xhtml">
+          <span class="logo abc"><img src="assets/logo.png" height="60" width="80" ></span>
+        </a>
+    </div>
+    <div>
+       <%if user_signed_in?%>
+              <span class="sign-out" >
+                 <%=link_to "Sign Out",destroy_user_session_path, method: :delete ,:style =>'color=white;' %>
+                 <%=link_to raw('<i class="fa fa-sign-out" aria-hidden="true"></i>'),destroy_user_session_path, method: :delete ,:style =>'color=white;' %>
+              </span>
+           <% end %>
+    </div>
+    <div id="sidebar-wrapper" class="sidebar-toggle">
+      <ul class="sidebar-nav">
+           <div class="col-xs-12 co;-col-sm-12 col-md-12 col-lg-12 " style="z-index: 999;padding:0px;">
+              <div class="image2" style="position: relative; z-index:-20;top:0px; margin-top: -60px;margin-bottom: 30px;">
   
                         <div class="profile-pic" >
                             <% if user_signed_in? %>
-                               <%= image_tag current_user.photo.url( :thumb), :class => "style_image" ,:style => "height:50px;" %>
+                               <%= image_tag current_user.photo.url( :thumb), :class => "style_image",:style => 'height:50px;' %>
                             <% end %>
                         </div>
 
@@ -66,23 +34,53 @@ margin-top: 56px;
                             <% if user_signed_in? %>
                                <%= current_user.name %>
                             <% end %>
-                        </div></div></div>
+                        </div>
+              </div>
+           </div>
     
-    <a href="/admin_landing" class="active" style="font-size:15px;padding: 10px;"><i class="zmdi zmdi-home" style="padding-right: 20px;
-    padding-left: 20px; font-size:15px;"></i>Homepage</a>
-    <a href="#" style="font-size:15px;padding: 10px;"><i class="zmdi zmdi-account" style="padding-right: 20px;
-    padding-left: 20px;font-size:15px;"></i>Registered User</a>
-    <a href="/coadmin" style="font-size:15px;padding: 10px;"><i class="zmdi zmdi-accounts-list-alt" style="padding-right: 20px;
-    padding-left: 20px;font-size:15px;"></i>Co-admin</a>
-    <a href="#" style="font-size:15px;padding: 10px;"><i class="fa fa-car" style="padding-right: 18px;
-    padding-left: 18px;font-size:15px;"></i>Vehicles</a>
-    <a href="#" style="font-size:15px;padding: 10px;"><i class="fa fa-gavel" style="padding-right: 18px;
-    padding-left: 18px;font-size:15px;"></i>Services</a>
-</div>
-<div class="card profile-view " style="margin-top: 30px;">
+           <li><a href="/admin_landing" class="active" style="font-size:15px;">
+               <i class="zmdi zmdi-home" style=" font-size:15px;">
+                </i>Homepage
+           </a></li>
+           <li><a href="#" style="font-size:15px;">
+               <i class="zmdi zmdi-account" style="font-size:15px;">
+               </i>Registered User
+           </a></li>
+            <li><a href="/coadmin" style="font-size:15px;">
+               <i class="zmdi zmdi-accounts-list-alt" style="font-size:15px;">
+               </i>Co-admin
+            </a></li>
+             <li><a href="/vehicles" style="font-size:15px;">
+                   <i class="fa fa-car" style="font-size:15px;">
+                   </i>Vehicles
+              </a></li>
+              <li><a href="#" style="font-size:15px;">
+                  <i class="fa fa-gavel" style="font-size:15px;">                     </i>Services
+              </a></li>
+
+            <hr style="margin:25px">
+
+            <li><a style="font-size:15px;" href="#">
+               <i class="fa fa-table" style="font-size:15px;">
+               </i> Review Table   
+            </a></li>
+            <li><a href="#" style="font-size:15px;">
+                <i class="fa fa-plus square" style="font-size:15px;">
+                 </i>Add Services
+            </a></li>
+            <li><a href="#" style="font-size:15px;padding-bottom:20px;">
+                  <i class="fa fa-plus-square-o" style="font-size:15px;">
+                  </i>Add Vehicles
+            </a></li>
+        
+        </ul>
+    </div>
+   </div>
+</nav>  
+<div class="card-body profile-view " >
       <% User.where(role_id:2).each do |user| %>
-           <div class="col-xs-12 col-sm-6 col-lg-6 col-md-6">
-                            <div class="pv-header">
+           <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12" style="margin-top: 20px;">
+                            <div class="pv-header" >
                                <%= image_tag user.photo.url(:small), :class => "style_image" , :style => 'margin-top: 57px;'%>
                             </div>
                             
@@ -96,43 +94,40 @@ margin-top: 56px;
                                    <h4><%=user.email%></h4>
                             </div>
             </div>
+            <hr>
       <%end%>
 </div>
-<script type="text/javascript">
-        function openNav() {
-          document.getElementById("mySidenav").style.width = "250px";
-        }
 
-         function closeNav() {
-           document.getElementById("mySidenav").style.width = "0";
-          }
+<script type="text/javascript">
+  $(window).resize(function() {
+  var path = $(this);
+  var contW = path.width();
+  if(contW >= 751){
+    document.getElementsByClassName("sidebar-toggle")[0].style.left="200px";
+  }else{
+    document.getElementsByClassName("sidebar-toggle")[0].style.left="-200px";
+  }
+});
+$(document).ready(function() {
+  $('.dropdown').on('show.bs.dropdown', function(e){
+      $(this).find('.dropdown-menu').first().stop(true, true).slideDown(300);
+  });
+  $('.dropdown').on('hide.bs.dropdown', function(e){
+    $(this).find('.dropdown-menu').first().stop(true, true).slideUp(300);
+  });
+  $("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    var elem = document.getElementById("sidebar-wrapper");
+    left = window.getComputedStyle(elem,null).getPropertyValue("left");
+    if(left == "200px"){
+      document.getElementsByClassName("sidebar-toggle")[0].style.left="-200px";
+    }
+    else if(left == "-200px"){
+      document.getElementsByClassName("sidebar-toggle")[0].style.left="200px";
+    }
+  });
+});
             $(document).ready(function(){
-                //Basic Example
-                $("#data-table-basic").bootgrid({
-                    css: {
-                        icon: 'zmdi icon',
-                        iconColumns: 'zmdi-view-module',
-                        iconDown: 'zmdi-expand-more',
-                        iconRefresh: 'zmdi-refresh',
-                        iconUp: 'zmdi-expand-less'
-                    },
-                });
-                
-                //Selection
-                $("#data-table-selection").bootgrid({
-                    css: {
-                        icon: 'zmdi icon',
-                        iconColumns: 'zmdi-view-module',
-                        iconDown: 'zmdi-expand-more',
-                        iconRefresh: 'zmdi-refresh',
-                        iconUp: 'zmdi-expand-less'
-                    },
-                    selection: true,
-                    multiSelect: true,
-                    rowSelect: true,
-                    keepSelection: true
-                });
-                
                 //Command Buttons
                 $("#data-table-command").bootgrid({
                     css: {
@@ -151,4 +146,4 @@ margin-top: 56px;
                 });
             });
 </script>
- 
+  

@@ -6277,7 +6277,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pagination > .active > span:focus {
   z-index: 3;
   color: #ffffff;
-  background-color: #EF4224;
+  background-color: #EF634B;
   border-color: #ffffff;
   cursor: default;
 }
@@ -13889,6 +13889,7 @@ html:not(.ie9) .select.fg-line:before {
 
 .input-group:not(.input-group-lg):not(.input-group-sm) .input-group-addon {
   font-size: 15px;
+  background-color: white;
 }
 
 .input-group-addon {

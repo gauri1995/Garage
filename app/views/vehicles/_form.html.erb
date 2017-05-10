@@ -1,4 +1,4 @@
-<div class="m-l-25">
+<div class="card-body ">
 <%= form_for(vehicle) do |f|%>
   <% if vehicle.errors.any? %>
     <div id="error_explanation">
@@ -12,29 +12,31 @@
     </div>
   <% end %>
   <div class="field">
-    <%=f.label :brand ,"Select a brand"%>
+    <%=f.label :brand ,"Select a brand" ,:style => 'font-size:20px;margin-top:20px;'%>
     <br>
-     <%= f.collection_select :brand_id, Brand.all, :id, :brand_name ,{:prompt => 'Select Brand'},{:id => 'vehicle_brand_id', :onChange => "aa()" }%>
+     <%= f.collection_select :brand_id, Brand.all, :id, :brand_name ,{:prompt => 'Select Brand'},{:id => 'vehicle_brand_id', :onChange => "aa()" , :class => 'custom-dropdown'}%>
     
      <% if current_page?(new_vehicle_path)%>
-     Want to add new Brand?
+     <div style="font-size: 12px;margin-top: 10px;">Want to add new Brand?
      <button type="button" class="btn button" data-toggle="modal" data-target="#myModal">Add new Brand</button>
+     </div>
      <%end%>
 
   </div>
   <div class="field target">
-     <%=f.label :car ,"Select a car"%>
+     <%=f.label :car ,"Select a car" ,:style => 'font-size:20px;margin-top:20px;'%>
       <br>
-     <%= f.grouped_collection_select :car_id, Brand.order(:brand_name), :cars,:brand_name,:id, :name , {:prompt => 'Select Car'} , {:id => 'vehicle_car_id' } %>
+     <%= f.grouped_collection_select :car_id, Brand.order(:brand_name), :cars,:brand_name,:id, :name , {:prompt => 'Select Car'} , {:id => 'vehicle_car_id' , :class => 'custom-dropdown' } %>
       <% if current_page?(new_vehicle_path)%>
-    Want to add new Car?
+    <div style="font-size: 12px;margin-top: 10px;">Want to add new Car?
      <button type="button" class="btn button" data-toggle="modal" data-target="#myModal1">Create new Car</button>
+     </div>
      <%end%>
   </div>
   <div class="field">
-    <%=f.label :variant ,"Select a variant"%>
+    <%=f.label :variant ,"Select a variant" ,:style => 'font-size:20px;margin-top:20px;'%>
     <br>
-    <%= f.collection_select :master_variant_id, MasterVariant.all, :id, :variant ,{:prompt => 'Select Variant'} %>
+    <%= f.collection_select :master_variant_id, MasterVariant.all, :id, :variant ,{:prompt => 'Select Variant' }, {:class => 'custom-dropdown'} %>
   </div>
   <br>
   <div class="actions">

@@ -4,6 +4,5 @@ class Vehicle < ApplicationRecord
     belongs_to :car
 	belongs_to :master_variant
 	has_many :users
-	validates :id, uniqueness: { scope: [:brand_id, :car_id , :master_variant_id] }
-	
+	validates_uniqueness_of :brand_id, :scope => [ :master_variant_id, :car_id]
 end

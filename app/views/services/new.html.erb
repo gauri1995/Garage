@@ -1,5 +1,39 @@
-<h1>New Service</h1>
+<style type="text/css">
+  a:hover { 
+    color:#EF634B;
+   }
+</style>
+<div class="blue h-60">
+     <span class="sidebtn" onclick="openNav()">&#9776;</span>
+      <span style="margin-left: 20px;"><img src="http://localhost:3000/assets/logo.png" height="60" width="80" style="margin-top: -33px;"></span>
+       <%if user_signed_in?%>
+      <span class="sign-out">
+      <%=link_to "Sign Out",destroy_user_session_path, method: :delete ,:style =>'color=white;' %>
+      <%=link_to raw('<i class="fa fa-sign-out" aria-hidden="true"></i>'),destroy_user_session_path, method: :delete ,:style =>'color=white;' %></span>
+      <%end%>
+</div>
 
+<div id="mySidenav" class="sidenav blue" style="z-index: 10">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="/admin_landing" class="active">Homepage</a><hr>
+    <a href="#">Registered User</a><hr>
+    <a href="/coadmin">Co-admin</a><hr>
+    <a href="#">Vehicles</a><hr>
+    <a href="#">Services</a>
+</div>
+
+<h1 class="m-l-25">Add A Service</h1>
+<div class="card m-b-0">
 <%= render 'form', service: @service %>
+<br>
+<%= link_to 'Back', services_path , :style => 'color:black ; margin-left:25px;margin-bottom:20px;color:white;' ,:class =>'btn button'%>
+</div>
+<script type="text/javascript">
+	function openNav() {
+          document.getElementById("mySidenav").style.width = "250px";
+        }
 
-<%= link_to 'Back', services_path %>
+         function closeNav() {
+           document.getElementById("mySidenav").style.width = "0";
+          }
+</script>

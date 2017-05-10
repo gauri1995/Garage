@@ -1,28 +1,73 @@
-<%= form_for(service) do |f| %>
-  <% if service.errors.any? %>
+<div class="m-l-25">
+<%= form_for( @service, :html => { :multipart => true}) do |f|%>
+  <% if @service.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(service.errors.count, "error") %> prohibited this service from being saved:</h2>
+      <h2><%= pluralize(@service.errors.count, "error") %> prohibited this service from being saved:</h2>
 
       <ul>
-      <% service.errors.full_messages.each do |message| %>
+      <% @service.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
-   <div class="field">
-       <%=f.label :name%>
-       <%=f.text_field :name%>
-    </div>
-     <div class="field">
-       <%=f.label :description%>
-       <%=f.text_field :description%>
-    </div>
-    <div class="field">
-    <%= collection_select(:service, :service_category_id, ServiceCategory.all, :id, :category_name) %>
+
+  <div class="field">
+     <%=f.label :category ,"Select a Category"%>
+    <br>
+     <%= f.collection_select :service_category_id, ServiceCategory.all, :id, :category_name ,{:prompt => 'Select Brand'},{:id => 'service_service_category_id' }%>
+    
+     <%if current_page?(new_service_path)%>
+     Add a new Category?
+     <button type="button" class="btn button" data-toggle="modal" data-target="#myModal">New Category</button>
+     <%end%>
   </div>
+
+  <div class="field">
+    <%= f.label :name, "Service Name" ,:class => "col-md-4 col-sm-2 control-label" %><br/>
+    <%= f.text_area :name,:class => "col-md-4 col-sm-2 control-label", class: 'fields' %>
+    <br>
+  </div>
+  <br>
+
+  <div class="field">
+    <%= f.label :description, "Description",:class => "col-md-4 col-sm-2 control-label" %><br/>
+    <%= f.text_area :description,:class => "col-md-4 col-sm-2 control-label", class: 'fields' %>
+    <br>
+  </div>
+  <br>
+
+  <p>
+    <%= f.file_field :service_pic %>
+  </p>
 
   <div class="actions">
     <%= f.submit %>
   </div>
-<% end %>
+   <% end %>
+  </div>
+
+
+ <% if current_page?(new_service_path)%>
+  <!-- Modal -->
+     <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal">&times;</button>
+               <div>Add New Category</div>
+            </div>
+            <div class="modal-body">
+             <%= render 'service_categories/form'  %>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+     </div>
+
+  
+<%end%>
+
+

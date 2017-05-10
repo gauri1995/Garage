@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170508075550) do
+ActiveRecord::Schema.define(version: 20170510121751) do
 
   create_table "brands", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "brand_name"
@@ -52,10 +52,14 @@ ActiveRecord::Schema.define(version: 20170508075550) do
 
   create_table "services", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
-    t.text     "description",         limit: 65535
+    t.text     "description",              limit: 65535
     t.integer  "service_category_id"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.string   "service_pic_file_name"
+    t.string   "service_pic_content_type"
+    t.integer  "service_pic_file_size"
+    t.datetime "service_pic_updated_at"
     t.index ["service_category_id"], name: "index_services_on_service_category_id", using: :btree
   end
 

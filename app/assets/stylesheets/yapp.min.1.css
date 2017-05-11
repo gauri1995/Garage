@@ -151,6 +151,10 @@ button {
   overflow: visible;
 }
 
+button.btn.button{
+  margin-left: 104px;
+}
+
 button,
 select {
   text-transform: none;
@@ -175,8 +179,16 @@ input::-moz-focus-inner {
   padding: 0;
 }
 
+label.col-md-4.col-sm-2.control-label{
+  margin-top: 25px;
+}
+
 input {
   line-height: normal;
+}
+
+select#service_service_category_id{
+  margin-left: 15px;
 }
 
 input[type="checkbox"],
@@ -3264,7 +3276,9 @@ label {
   display: inline-block;
   max-width: 100%;
   margin-bottom: 5px;
+  margin-top: 10px;
   font-weight: bold;
+  margin-left: 15px;
 }
 
 input[type="search"] {

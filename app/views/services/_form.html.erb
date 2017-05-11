@@ -15,13 +15,13 @@
   <div class="field">
      <%=f.label :category ,"Select a Category"%>
     <br>
-     <%= f.collection_select :service_category_id, ServiceCategory.all, :id, :category_name ,{:prompt => 'Select Brand'},{:id => 'service_service_category_id' }%>
+     <%= f.collection_select :service_category_id, ServiceCategory.all, :id, :category_name ,{:prompt => 'Select Category'},{:id => 'service_service_category_id' }%>
     
      <%if current_page?(new_service_path)%>
      Add a new Category?
      <button type="button" class="btn button" data-toggle="modal" data-target="#myModal">New Category</button>
      <%end%>
-  </div>
+  </div><br />
 
   <div class="field">
     <%= f.label :name, "Service Name" ,:class => "col-md-4 col-sm-2 control-label" %><br/>
@@ -37,9 +37,10 @@
   </div>
   <br>
 
-  <p>
+  <div>
     <%= f.file_field :service_pic %>
-  </p>
+    <%= image_tag @service.service_pic.url(:thumb) %>
+  </div>
 
   <div class="actions">
     <%= f.submit %>
